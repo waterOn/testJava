@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>sso.asiainfo.com</groupId>
+		<artifactId>sdwan-ms-01</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath> ../sdwan-ms-01/pom.xml</relativePath><!-- lookup parent from repository -->
+	</parent>
+
+	<artifactId>sdwan-ms-201-dataHandler</artifactId>
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>sso.asiainfo.com</groupId>
+			<artifactId>sdwan-ms-02-public-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>sso.asiainfo.com</groupId>
+			<artifactId>sdwan-ms-02-public-pojo</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>sso.asiainfo.com</groupId>-->
+<!--			<artifactId>sdwan-ms-202-log</artifactId>-->
+<!--			<version>${project.version}</version>-->
+<!--		</dependency>-->
+
+<!--	com-->
+
+<!--		<dependency>-->
+<!--			<groupId>sso.asiainfo.com</groupId>-->
+<!--			<artifactId>security</artifactId>-->
+<!--			<version>${project.version}</version>-->
+<!--		</dependency>-->
+
+
+		<!-- 导入Eureka客户端的依赖，将 微服务提供者 注册进 Eureka -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!--springboot web启动器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- 切换log4j2日志读取 -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- 配置 log4j2 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<!-- 加上这个才能辨认到log4j2.yml文件 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+
+		<!-- mybatis 启动器-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+		<!--		lombok插件，为了写@Slf4j-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+		</dependency>
+
+<!--		热部署-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- 配置gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-juli</artifactId>
+			<version>8.5.51</version>
+		</dependency>
+
+		<!--        <dependency>
+                    <groupId>com.platform.sdk</groupId>
+                    <artifactId>platform-sdk</artifactId>
+                    <version>0.0.1</version>
+                    <scope>system</scope>
+                    <systemPath>${project.basedir}/lib/platform-sdk-0.0.1.jar</systemPath>
+                </dependency>-->
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<!--解决SpringBoot打包成jar后运行提示没有主清单属性-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,189 @@
+spring:
+ profiles:
+   active: local
+---
+server:
+  port: 10095
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml # mybatis配置文件所在路径
+  type-aliases-package: boss.net.pojo # 所有Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/**/*.xml # mapper映射文件
+spring:
+  profiles: local
+  application:
+    name: sdwan-dataHandle #这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql驱动包
+    url: jdbc:mysql://10.21.19.86:3306/sdwan2.4.1?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+#    url: jdbc:mysql://192.168.100.4:3306/sdwan_co_db_v3?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    username: root
+#    password: 123
+    password: sdwan3baomi
+    dbcp2:
+      min-idle: 5 # 数据库连接池的最小维持连接数
+      initial-size: 5 # 初始化连接数
+      max-total: 5 # 最大连接数
+      max-wait-millis: 150
+    #热部署
+  devtools:
+    restart:
+      enabled: true
+      trigger-file: devtools.tg
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    registerWithEureka: false # 服务注册开关
+    fetchRegistry: true # 服务发现开关
+    serviceUrl: # 客户端(服务提供者)注册到哪一个Eureka Server服务注册中心，多个用逗号分隔
+      defaultZone: http://localhost:6001/eureka
+  #      defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port} # 指定实例ID,就不会显示主机名了
+
+#logging:
+#  config: classpath:log4j2.yml
+ribbon:
+  ReadTimeout: 40000
+  ConnectTimeout: 40000
+logging:
+  level:
+    root: info
+fee:
+  mark: false
+#lab
+---
+server:
+  port: 10096
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml # mybatis配置文件所在路径
+  type-aliases-package: boss.net.pojo # 所有Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/**/*.xml # mapper映射文件
+spring:
+  application:
+    name: sdwan-dataHandle #这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name
+  profiles: lab
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql驱动包
+    #    url: jdbc:mysql://localhost:3306/sdwan?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    url: jdbc:mysql://192.168.100.4:3306/sdwan_co_db?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    username: root
+    #    password: 123
+    password: as1a1nf0
+    dbcp2:
+      min-idle: 5 # 数据库连接池的最小维持连接数
+      initial-size: 5 # 初始化连接数
+      max-total: 5 # 最大连接数
+      max-wait-millis: 150
+    #热部署
+  devtools:
+    restart:
+      enabled: true
+      trigger-file: devtools.tg
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    registerWithEureka: false # 服务注册开关
+    fetchRegistry: false # 服务发现开关
+    serviceUrl: # 客户端(服务提供者)注册到哪一个Eureka Server服务注册中心，多个用逗号分隔
+      defaultZone: http://192.168.100.2:6001/eureka
+  #      defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port} # 指定实例ID,就不会显示主机名了
+ribbon:
+  ReadTimeout: 40000
+  ConnectTimeout: 40000
+---
+server:
+  port: 10096
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml # mybatis配置文件所在路径
+  type-aliases-package: boss.net.pojo # 所有Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/**/*.xml # mapper映射文件
+spring:
+  application:
+    name: sdwan-dataHandle #这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name
+  profiles: line_test
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql驱动包
+    #    url: jdbc:mysql://localhost:3306/sdwan?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    url: jdbc:mysql://10.126.141.51:3306/sdwan_2?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    username: root
+    password: root51*123
+    dbcp2:
+      min-idle: 5 # 数据库连接池的最小维持连接数
+      initial-size: 5 # 初始化连接数
+      max-total: 5 # 最大连接数
+      max-wait-millis: 150
+    #热部署
+  devtools:
+    restart:
+      enabled: true
+      trigger-file: devtools.tg
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    registerWithEureka: false # 服务注册开关
+    fetchRegistry: false # 服务发现开关
+    serviceUrl: # 客户端(服务提供者)注册到哪一个Eureka Server服务注册中心，多个用逗号分隔
+      defaultZone: http://10.190.5.215:6001/eureka
+  #      defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port} # 指定实例ID,就不会显示主机名了
+ribbon:
+  ReadTimeout: 40000
+  ConnectTimeout: 40000
+---
+server:
+  port: 10096
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml # mybatis配置文件所在路径
+  type-aliases-package: boss.net.pojo # 所有Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/**/*.xml # mapper映射文件
+spring:
+  application:
+    name: sdwan-dataHandle #这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name
+  profiles: line_product
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql驱动包
+    #    url: jdbc:mysql://localhost:3306/sdwan?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    url: jdbc:mysql://10.190.3.70:3306/sdwan_2?characterEncoding=utf-8&serverTimezone=GMT%2B8 # 数据库名称
+    username: root
+    password: root70*123
+    dbcp2:
+      min-idle: 5 # 数据库连接池的最小维持连接数
+      initial-size: 5 # 初始化连接数
+      max-total: 5 # 最大连接数
+      max-wait-millis: 150
+    #热部署
+  devtools:
+    restart:
+      enabled: true
+      trigger-file: devtools.tg
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    registerWithEureka: false # 服务注册开关
+    fetchRegistry: false # 服务发现开关
+    serviceUrl: # 客户端(服务提供者)注册到哪一个Eureka Server服务注册中心，多个用逗号分隔
+      defaultZone: http://10.190.5.216:6001/eureka
+  #      defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port} # 指定实例ID,就不会显示主机名了
+ribbon:
+  ReadTimeout: 40000
+  ConnectTimeout: 40000
+
+
+
